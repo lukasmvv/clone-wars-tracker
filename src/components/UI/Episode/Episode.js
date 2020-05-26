@@ -14,7 +14,11 @@ const Episode = (props) => {
     //     img = <img className={classes.Image} src={`/assets/seasonCovers/season${episode.season}.jpg`} alt='test'></img>;
     // }
     const epCode = `${episode.season}${episode.Episode<10?`0${episode.Episode}`:episode.Episode}.png`;
-    img = <img className={classes.Image} src={`/assets/episodeCovers/${epCode}`} alt='test'></img>;
+    if (episode.Type==='movie') {
+        img = <img src={`http://img.omdbapi.com/?i=${episode.movieID}&apikey=${props.apiKey}`} alt='moviePoster'></img>;
+    } else {
+        img = <img className={classes.Image} src={`/assets/episodeCovers/${epCode}`} alt='test'></img>;
+    }
 
     let epNum = null;
     if (episode.Type==='movie') {
