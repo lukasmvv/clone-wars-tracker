@@ -12,24 +12,30 @@ const ListView = (props) => {
                             701,702,703,704,705,706,707,708,709,710,711,712,713];
     let episodesChrono = [];
     let counter = 1;
+    console.log(props);
 
     chronoOrder.forEach((listed, i) => {
         const seasonNum = parseInt((''+listed).slice(0,1));
-        let epNum = null;
-        if (seasonNum===1) {
-            epNum = parseInt((''+listed).slice(1));
-        } else {
-            epNum = parseInt((''+listed).slice(1))-1;
-        }
-        
-        if (props.seasons[`season${seasonNum}`][epNum]) {
-            const episodeToPush = props.seasons[`season${seasonNum}`][epNum];
-            episodeToPush.chronoNum = counter;
-            episodesChrono.push(episodeToPush);
-            counter++;
+        let epNum = parseInt((''+listed).slice(1))-1;
+
+        // if season is in object
+        if (`season${seasonNum}` in props.seasons && ((props.movie)!=='undefined')) {
+            if (listed===100) {
+                props.movie.chronoNum = counter;
+                episodesChrono.push(props.movie);
+                counter++;
+            }            
+            // if episode is in season
+            else if (epNum<props.seasons[`season${seasonNum}`].length) {
+                const episodeToPush = props.seasons[`season${seasonNum}`][epNum];
+                episodeToPush.chronoNum = counter;
+                episodesChrono.push(episodeToPush);
+                counter++;
+            }            
         }
     });
 
+    console.log(episodesChrono);
     return (
         <div className={classes.ListView}>
             {episodesChrono.map((ep,i) => {

@@ -7,18 +7,30 @@ import GridView from '../../components/Views/GridView/GridView';
 import {Route, NavLink, Switch} from 'react-router-dom';
 import axios from 'axios';
 
+// TO DO
+// scroll snap
+// selected episode bigger card
+// grid view - click on cells
+// make app look better - list, grid, icon, navs
+// hold episode to change seen
+// click episode for full card
+// add ... to long plot text
+// edit shouldComponentUpdate in layout so that components are updated once state is full
+// user ratings?
+// cookie permissions
+
 class Layout extends Component {
     
     constructor(props) {
         super();
         this.state = {
-            season1: [],
-            season2: [],
-            season3: [],
-            season4: [],
-            season5: [],
-            season6: [],
-            season7: []
+            // season1: [],
+            // season2: [],
+            // season3: [],
+            // season4: [],
+            // season5: [],
+            // season6: [],
+            // season7: []
         }
         this.apiKey = 'c1fb34c8';
         this.showID = 'tt0458290';
@@ -32,7 +44,49 @@ class Layout extends Component {
             // getting and looping through all seasons
             this.getAndSetEpisode(i+1);         
         });
+
+        this.getAndSetMovie();
     };
+
+    shouldComponentUpdate(nextProps, nextState) {
+        //console.log('shouldComponentUpdate');
+        let ret = true;
+        const seasons = ['season1', 'season2', 'season3', 'season4', 'season5', 'season6', 'season7', 'movie'];
+        seasons.forEach(s => {
+            //console.log(s);
+            if (!(s in nextState)) {
+                // console.log('no');
+                ret = false;
+            }            
+        });
+        //console.log(ret);
+        //console.log(nextState);
+        return ret;
+    }
+
+    getAndSetMovie = async () => {
+        let promises = [];
+        let res = await axios.get(`http://www.omdbapi.com/?apikey=${this.apiKey}&i=${this.movieID}`);
+        console.log(res); 
+        let cookieVals = this.getCookie(`movie`);
+        let seen = null;
+    
+        if (cookieVals===null) {
+            //console.log('cookie will be created');                    
+            this.setCookie('movie', false, new Date('01/01/2100'));   
+            seen = false;               
+        } else {
+            //console.log('cookie exists');
+            seen = cookieVals;
+        }
+        this.setState({
+            movie: {
+                ...res.data,
+                seen: seen,
+                movieID: this.movieID
+            }
+        });
+    }
 
     getAndSetEpisode = async (num) => {
         let promises = [];
@@ -41,9 +95,7 @@ class Layout extends Component {
         const seasonName = `season${seasonNum}`;
         let res = await axios.get(`http://www.omdbapi.com/?apikey=${this.apiKey}&i=${this.showID}&season=${seasonNum}`);
         let episodes = res.data.Episodes;
-        if (seasonNum===1) {
-            promises.push(axios.get(`http://www.omdbapi.com/?apikey=${this.apiKey}&i=${this.movieID}`));
-        }
+
         episodes.forEach(episode => {
             promises.push(axios.get(`http://www.omdbapi.com/?apikey=${this.apiKey}&i=${episode.imdbID}`));
         });
@@ -51,11 +103,11 @@ class Layout extends Component {
         let allPromises = await Promise.all(promises);
 
         let cookieVals = this.getCookie(`season${seasonNum}`);                
-        const seasonLength = seasonNum===1 ? episodes.length +1 : episodes.length;
+        const seasonLength = episodes.length;
 
         if (cookieVals===null || cookieVals.length!==seasonLength) {
             //console.log('cookie will be created');                    
-            this.setCookie(seasonName, seasonNum===1 ? [false,...episodes.map(e => e.seen)] : episodes.map(e => e.seen), new Date('01/01/2100'));   
+            this.setCookie(seasonName, episodes.map(e => e.seen), new Date('01/01/2100'));   
             cookieVals.forEach((cv,i) => {
                 seenArr[i] = false;
             });               
@@ -67,22 +119,12 @@ class Layout extends Component {
         }
 
         episodes = allPromises.map((p,i) => {
-            if (p.data.Type==='movie') {
-                return {
-                    ...p.data,
-                    seen: seenArr[i],
-                    season: seasonNum,
-                    Episode: 0,
-                    movieID: this.movieID
-                }
-            } else {
-                return {
-                    ...p.data,
-                    seen: seenArr[i],
-                    season: seasonNum,
-                    showID: this.showID
-                }
-            }            
+            return {
+                ...p.data,
+                seen: seenArr[i],
+                season: seasonNum,
+                showID: this.showID
+            }           
         });
 
         this.setState({
@@ -92,18 +134,25 @@ class Layout extends Component {
 
 
     clickedEpisode = (episode) => {
-        let season = this.state[`season${episode.season}`];
-        let epNum = null;
-        if (episode.season===1) {
-            epNum = parseInt(episode.Episode);
+        console.log(episode);
+        if (episode.Type==='movie') {
+            const newSeen = !episode.seen;
+            this.setCookie(`movie`, newSeen, new Date('01/01/2100'));
+            this.setState({
+                movie: {
+                    ...episode,
+                    seen: newSeen
+                }
+            });
         } else {
-            epNum = parseInt(episode.Episode)-1;
-        }
-        season[epNum].seen = !season[epNum].seen;
-        this.setCookie(`season${episode.season}`, season.map(e => e.seen), new Date('01/01/2100'));
-        this.setState({
-            [`seasnon${episode.season}`]: season
-        });
+            let season = this.state[`season${episode.season}`];
+            let epNum = parseInt(episode.Episode)-1;
+            season[epNum].seen = !season[epNum].seen;
+            this.setCookie(`season${episode.season}`, season.map(e => e.seen), new Date('01/01/2100'));
+            this.setState({
+                [`seasnon${episode.season}`]: season
+            });
+        }        
     }
 
 
@@ -148,9 +197,9 @@ class Layout extends Component {
                 <Top></Top>
                 <Bottom>
                     <Switch>
-                        <Route path="/" exact render={(props) => <ListView apiKey={this.apiKey} clickedEpisode={this.clickedEpisode} seasons={this.state}/>}></Route>
-                        <Route path="/listView" exact render={(props) => <ListView apiKey={this.apiKey} clickedEpisode={this.clickedEpisode} seasons={this.state}/>}></Route>
-                        <Route path="/gridView" exact render={(props) => <GridView apiKey={this.apiKey} seasons={this.state}/>}></Route>
+                        <Route path="/" exact render={(props) => <ListView apiKey={this.apiKey} clickedEpisode={this.clickedEpisode} seasons={this.state} movie={this.state.movie}/>}></Route>
+                        <Route path="/listView" exact render={(props) => <ListView apiKey={this.apiKey} clickedEpisode={this.clickedEpisode} seasons={this.state} movie={this.state.movie}/>}></Route>
+                        <Route path="/gridView" exact render={(props) => <GridView apiKey={this.apiKey} seasons={{...this.state}} movie={this.state.movie}/>}></Route>
                     </Switch>
                 </Bottom>                
             </div>
