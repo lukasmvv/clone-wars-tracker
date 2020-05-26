@@ -1,0 +1,10 @@
+.Bottom {
+    width: 100%;
+    height: 85%;
+    overflow: auto;
+    background-color: rgb(149, 78, 190);
+}
+
+.Hello {
+    text-align: center;
+}

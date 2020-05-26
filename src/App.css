@@ -1,6 +1,19 @@
-.App {
-  text-align: center;
+/* Resetting all css styling - necessary for default browser styling */
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  background: transparent;
 }
+
+.App {
+  /* text-align: center; */
+}
+
+/*
 
 .App-logo {
   height: 40vmin;
@@ -35,4 +48,4 @@
   to {
     transform: rotate(360deg);
   }
-}
+} */
