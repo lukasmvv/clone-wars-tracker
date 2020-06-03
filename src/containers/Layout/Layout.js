@@ -8,6 +8,7 @@ import {Route, Switch, Redirect} from 'react-router-dom';
 import axios from 'axios';
 
 // TO DO
+// Missing episode data?
 // Episode fonts, seen colours
 // Grid improvements?
 // cookie permissions?
