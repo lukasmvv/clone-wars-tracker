@@ -1,54 +1,43 @@
 import React from 'react';
 import classes from './Episode.module.css';
-import axios from 'axios';
 
 const Episode = (props) => {
     const episode = props.episode;
-    let img = null;
     
-    // if (episode.season===0) {
-    //     // img = <img src={`http://img.omdbapi.com/?i=${episode.movieID}&apikey=${props.apiKey}`} alt='test  '></img>;
-    //     img = <img src={`../../../assets/seasonCovers/season${episode.season}.jpg`} alt='test'></img>;
-    // } else {
-    //     // img = <img src={`http://img.omdbapi.com/?i=${episode.showID}&season=${episode.season}&apikey=${props.apiKey}`} alt='test  '></img>;
-    //     img = <img className={classes.Image} src={`/assets/seasonCovers/season${episode.season}.jpg`} alt='test'></img>;
-    // }
+    // getting episode image
     const epCode = `${episode.season}${episode.Episode<10?`0${episode.Episode}`:episode.Episode}.png`;
+    let img = null;
     if (episode.Type==='movie') {
-        img = <img src={`http://img.omdbapi.com/?i=${episode.movieID}&apikey=${props.apiKey}`} alt='moviePoster'></img>;
+        img = <img className={classes.ImageMovie} src={`https://img.omdbapi.com/?i=${episode.movieID}&apikey=${props.apiKey}`} alt='moviePoster'></img>;
     } else {
-        img = <img className={classes.Image} src={`/assets/episodeCovers/${epCode}`} alt='test'></img>;
+        img = <img className={classes.Image} src={`/assets/episodeCovers/${epCode}`} alt={`s${episode.season}e${episode.Episode}`}></img>;
     }
 
+    // getting episode number
     let epNum = null;
     if (episode.Type==='movie') {
         epNum = <p className={classes.EpNum}>Movie</p>
     } else {
         epNum = <p className={classes.EpNum}>S{episode.season}E{episode.Episode < 10 ? '0'+episode.Episode : episode.Episode}</p>
-    }
+    }    
 
     return (
-        <div className={classes.Episode}>
-            <div className={classes.Left}>
+        <div className={episode.active ? `${classes.Episode} ${classes.EpActive}` : `${classes.Episode} ${classes.EpNotActive}`} id={`ep${episode.season}${episode.Episode}`}>
+            <div className={episode.active ? `${classes.Left} ${classes.LeftActive}` : `${classes.Left} ${classes.LeftNotActive}`} onClick={() => props.changeSeen(episode)}>
                 <p className={classes.ChronNum}>#{episode.chronoNum}</p>
                 {epNum}
-                {/* <p className={classes.EpNum}>S{episode.season}E{episode.Episode < 10 ? '0'+episode.Episode : episode.Episode}</p> */}
-                {/* <p className={episode.seen ? classes.Seen : classes.NotSeen}>{episode.seen ? 'Seen' : 'Not Seen'}</p> */}
-                {/* <p>Seen</p> */}
-                
-                {/* <label className={classes.CheckboxContainer}>
-                    <input type="checkbox"></input>
-                    <span className={classes.CheckboxCheckmark}></span>
-                </label> */}
+                <div className={classes.RuntimeAndRating} onClick={() => props.changeSeen(episode)}>
+                    <p className={classes.Runtime}>{episode.Runtime}</p>
+                    <p className={classes.Rating}>{episode.imdbRating}/10</p>
+                </div>
             </div>
-            <div className={episode.seen ? classes.MidSeen : classes.MidNotSeen} onClick={() => props.clickedEpisode(episode)}>
-                <p className={classes.Title}>{episode.Title}</p>
-                <p className={classes.Runtime}>{episode.Runtime}</p>
-                <p className={classes.Rating}>IMDB Rating: {episode.imdbRating}/10</p>
-                {/* <p>{episode.imdbID}</p> */}
-                <p className={classes.Plot}>{episode.Plot}</p>
+            <div className={`${episode.active ? classes.MidActive : classes.MidNotActive} ${episode.seen ? classes.MidSeen : classes.MidNotSeen}`} >
+                <p className={episode.active ? classes.TitleLarge : classes.TitleSmall} onClick={() => props.changeSeen(episode)}>{episode.Title}</p>
+                <div className={episode.active ? classes.LongPlot : classes.ShortPlot} onClick={() => props.clickedEpisode(episode)}>
+                    <p>{episode.Plot}</p>
+                </div>                
             </div>
-            <div className={classes.Right}>
+            <div className={episode.active ? `${classes.Right} ${classes.RightActive}` : `${classes.Right} ${classes.RightNotActive}`} onClick={() => props.changeSeen(episode)}>
                 {img}
             </div>
         </div>

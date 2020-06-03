@@ -7,8 +7,8 @@ const Top = (props) => {
         <div className={classes.Top}>
             <nav>
                 <ul>
-                    <li><NavLink to="listView">List View</NavLink></li>
-                    <li><NavLink to="gridView">Grid View</NavLink></li>
+                    <li><NavLink className={classes.NavLink} activeClassName={classes.ActiveNavLink} to="listView">List</NavLink></li>
+                    <li><NavLink className={classes.NavLink} activeClassName={classes.ActiveNavLink} to="gridView">Grid</NavLink></li>
                 </ul>
             </nav>
         </div>

@@ -2,22 +2,26 @@ import React from 'react';
 import classes from './GridView.module.css';
 
 const GridView = (props) => {
-    // let seasons = null;
-    // let movie = null;
-    let table = null;
-    // let tableRows = [];
-    // let max = 0;
-    // let rows = [];
 
-    
+    let table = null;    
 
-    if (JSON.stringify(props.seasons)!==JSON.stringify({})) {
-        const seasonNums = [1,2,3,4,5,6,7];
-        const maxArr = new Array(props.seasons.season1.length).fill(0);
+    const seasonNums = [1,2,3,4,5,6,7];
+    const maxArr = new Array(props.seasons.season1.length).fill(0); // getting max season length
+    const movie = props.movie;
 
-        table = (
-            <table className={classes.Table}>
-                <tbody>
+    table = (
+        <div className={classes.Content}>
+            <div className={classes.MovieInput}>
+                <p>Movie</p>
+                <div className={classes.MovieDiv}>
+                    <label className={classes.container}>
+                        <input type="checkbox" id="movieCheck" name="movieCheck" checked={movie.seen} onChange={() => props.gridClicked(movie)}></input>
+                        <span className={classes.checkmark}></span>
+                    </label>                    
+                </div>
+            </div>
+            <table className={classes.Table}> 
+                <tbody className={classes.Body}>
                     {/* header row */}
                     <tr>
                         <th></th>
@@ -29,26 +33,26 @@ const GridView = (props) => {
                     {maxArr.map((a,j) => {
                         return (
                             <tr key={j}>
-                                <td>{j+1}</td>
+                                <th>{j+1}</th>
                                 {seasonNums.map((s,i) => {
                                     const colNum = s;
                                     let numberEps = props.seasons[`season${s}`].length;                                    
                                     if ((j+1)>numberEps) {
                                         return (
-                                            <td key={`${j}-${i}`}>none</td>
+                                            <td key={`${j}-${i}`}></td>
                                         );
                                     } else {
-                                        console.log((typeof props.seasons[`season${colNum}`][j+1])==='undefined');
                                         if ((typeof props.seasons[`season${colNum}`][j])==='undefined') {
                                             return (
-                                                <td key={`${j}-${i}`}>no ep</td>
+                                                <td key={`${j}-${i}`}></td>
                                             );
                                         } else {
                                             const seen = props.seasons[`season${s}`][j].seen;
-                                            return (<td 
-                                                        key={`${j}-${i}`}
-                                                        className={seen ? classes.Seen : classes.NotSeen}>
-                                                            {''+props.seasons[`season${s}`][j].seen}
+                                            return (<td key={`${j}-${i}`}>
+                                                            <label className={classes.container}>
+                                                                <input type="checkbox" checked={seen} onChange={() => props.gridClicked(props.seasons[`season${s}`][j])}></input>
+                                                                <span className={classes.checkmark}></span>
+                                                            </label>                                                                
                                                     </td>);
                                         }                                        
                                     }                                
@@ -58,18 +62,11 @@ const GridView = (props) => {
                     })}
                 </tbody>
             </table>
-        );
-    }
+        </div>
+    );
 
-    
-
-   
-    
-    console.log('grid');
-    console.log(props);
     return (
         <div className={classes.GridView}>
-            {/* this is the grid view */}
             {table}
         </div>
     );

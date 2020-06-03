@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "CWT",
+  "name": "Clone Wars Tracker",
   "icons": [
     {
       "src": "favicon.ico",

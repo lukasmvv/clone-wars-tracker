@@ -2,6 +2,13 @@ import React from 'react';
 import classes from './ListView.module.css';
 import Episode from '../../UI/Episode/Episode';
 
+// scrolling to given position
+const scrollTo = (ref,pos) => {
+    if (ref) {
+        ref.scrollTo(0,pos);
+    }
+};
+
 const ListView = (props) => {
     const chronoOrder = [   216,116,100,301,303,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,117,118,119,120,121,
                             201,202,203,217,218,219,204,205,206,207,208,209,210,211,212,213,214,220,221,222,
@@ -12,7 +19,6 @@ const ListView = (props) => {
                             701,702,703,704,705,706,707,708,709,710,711,712,713];
     let episodesChrono = [];
     let counter = 1;
-    console.log(props);
 
     chronoOrder.forEach((listed, i) => {
         const seasonNum = parseInt((''+listed).slice(0,1));
@@ -35,12 +41,17 @@ const ListView = (props) => {
         }
     });
 
-    console.log(episodesChrono);
     return (
-        <div className={classes.ListView}>
+        <div ref={(ref) => scrollTo(ref,props.listScrollPos)} className={classes.ListView} onScroll={props.scrolled} id="listDiv">
             {episodesChrono.map((ep,i) => {
                 return (
-                    <Episode key={i} episode={ep} apiKey={props.apiKey} clickedEpisode={props.clickedEpisode}></Episode>
+                    <Episode 
+                        key={i} 
+                        episode={ep} 
+                        apiKey={props.apiKey} 
+                        changeSeen={props.changeSeen} 
+                        clickedEpisode={props.clickedEpisode}>                            
+                    </Episode>
                 );
             })}
         </div>

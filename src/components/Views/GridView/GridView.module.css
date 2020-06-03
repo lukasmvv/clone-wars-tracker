@@ -1,19 +1,146 @@
+/* Grid View */
 .GridView {
     /* font-size: 10px; */
     width: 100%;
-    height: 100%;
+    height: 95%;
+    /* overflow: scroll;   */
     overflow: auto;
+    /* scroll-snap-type: y proximity;
+    scroll-padding-top: 8px; */
 }
 
+/* Table Content */
+.Content {
+    width: 100%;
+    height: 100%;
+}
+
+/* Movie Input - Before Table Body */
+.MovieInput {
+    color: snow;
+    width: 30%;
+    height: 5%;
+    display: inline-block;
+    margin-left: 10px;
+}
+/* Movie Div for Checkmark */
+.MovieDiv {
+    height: 100%;
+    float: left;
+    width: 30%;
+    margin-left: 10px;
+}
+/* Movie Input Elements */
+.MovieInput p,label {
+    float: left;
+}
+
+/* Table, Table Body, Rows, Columns, Headers */
 .Table {
     width: 100%;
+    height: 100%;
     font-size: 15px;
+    color: silver;
+    border-collapse: collapse;
+    text-align: center;
+}
+.Body {
+    width: 100%;
+    height: 100%;
+}
+td {
+    border: 1px solid silver;
+    /* padding: 0px; */
+    width: fit-content;
+    height: 10px;
+}
+th {
+    border: 1px solid silver;
+    border-top: none;
+    background-color: slategray;
+    color: black;
+    width: fit-content;
+    height: 10px;
 }
 
-.Seen {
-    color: green;
+/* Custom Checkbox */
+/* Customize the label (the container) */
+.container {
+    display: block;
+    position: relative;
+    /* padding-left: 35px; */
+    /* margin-bottom: 12px; */
+    cursor: pointer;
+    /* font-size: 22px; */
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    box-sizing: border-box;
+    height: 100%;
+    width: 100%;
+    background-color: #ccc;
+    border: 1px solid black;
 }
 
-.NotSeen {
-    color: red;
+/* Hide the browser's default checkbox */
+.container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+    box-sizing: border-box;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+    /* position: absolute; */
+    display: block;
+    top: 0;
+    left: 0;
+    /* height: 20px; */
+    /* width: 25px; */
+    width: 100%;
+    height: 100%;
+    background-color: #eee;
+    box-sizing: border-box;
+    /* border: 1px solid black; */
+    /* text-align: center; */
+    margin: auto auto;
+}
+
+/* On mouse-over, add a grey background color */
+.container:hover input ~ .checkmark {
+    background-color: #ccc;
+}
+  
+/* When the checkbox is checked, add a blue background */
+.container input:checked ~ .checkmark {
+    background-color: rgb(33, 243, 103);
+}
+  
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+  
+/* Show the checkmark when checked */
+.container input:checked ~ .checkmark:after {
+    display: block;
+}
+
+/* Style the checkmark/indicator */
+.container .checkmark:after {
+    left: calc(50% - 5px);
+    top: 2px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
 }

@@ -1,10 +1,16 @@
+/* Bottom Div */
 .Bottom {
     width: 100%;
     height: 85%;
-    overflow: auto;
-    background-color: rgb(149, 78, 190);
+    overflow: hidden;
+    /* background-color: black; */
 }
 
+/* Hello There! */
 .Hello {
+    /* color: white; */
+    color: #EEDB00;
+    font-family: 'Starjedi';
     text-align: center;
+    height: 5%;
 }

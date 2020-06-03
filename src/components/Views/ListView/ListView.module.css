@@ -1,3 +1,8 @@
+/* List View */
 .ListView {
-    
+    overflow: auto;
+    /* background-color: steelblue; */
+    height: 100%;
+    scroll-snap-type: y proximity;
+    scroll-padding-top: 8px;
 }
