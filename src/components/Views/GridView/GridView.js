@@ -5,7 +5,7 @@ const GridView = (props) => {
 
     let table = null;    
 
-    const seasonNums = [1,2,3,4,5,6,7];
+    const seasonNums = props.seasonNums;
     const maxArr = new Array(props.seasons.season1.length).fill(0); // getting max season length
     const movie = props.movie;
 

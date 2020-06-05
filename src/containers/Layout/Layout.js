@@ -8,7 +8,6 @@ import {Route, Switch, Redirect} from 'react-router-dom';
 import axios from 'axios';
 
 // TO DO
-// Missing episode data?
 // Episode fonts, seen colours
 // Grid improvements?
 // cookie permissions?
@@ -19,6 +18,39 @@ import axios from 'axios';
 
 // PROBABLY NOT GONNA DO
 // User ratings
+
+
+// TVDB - https://api.thetvdb.com/swagger#!/Series/get_series_id_episodes
+// proxy: https://tvdbapiproxy.leonekmi.fr
+
+// to get token POST to: https://api.thetvdb.com/login
+// Content-Type: application/json
+//  body: {
+//     "apikey": "22a67437a7c58af4cff3b98674afc0b0",
+//     "userkey": "5ED7BDB66E2553.87624355",
+//     "username": "lukasmvv"     
+//  }
+// this returns a JWT token
+// token valid for 24 hours
+
+// to refresh token GET from: https://api.thetvdb.com/refresh_token
+// Content-Type: application/json
+// Authorization: Bearer [token]
+// this returns a JWT token
+
+// to get episodes in a season: https://api.thetvdb.com/series/83268/episodes/query?airedSeason=1
+// check airedSeason vs dvdSeason
+// Content-Type: application/json
+// Authorization: Bearer [token]
+
+
+// DATA FLOW EXPLANATION
+// Main source of data is OMDB, wich sources data from IMDB
+// However, some of the data is incorrect/missing
+// Therefore static data from TVDB is saved in Firebase for reference - this data has correct season/episode numbers and has the IMDB IDs
+// TVDB is not used directly due to CORS policy
+// With the IMDB ID, additional info only in IMDB is retrieved
+
 
 class Layout extends Component {
     
@@ -39,14 +71,14 @@ class Layout extends Component {
         this.timers = [];
         this.long = true;
         this.scroll = false;
+        this.seasons = ['season1', 'season2', 'season3', 'season4', 'season5', 'season6', 'season7'];
+        this.seasonNums = [1,2,3,4,5,6,7];
+        this.seasonsAndMovie = [...this.seasons, 'movie'];
     }
 
     componentDidMount() { 
-        // getting all tv episodes
-        const cookieNames = ['season1', 'season2', 'season3', 'season4', 'season5', 'season6', 'season7'];
-        cookieNames.forEach((cookieName,i) => {            
-            this.getAndSetEpisode(i+1);         
-        });
+        // getting episodes
+        this.testFirebase();
 
         // getting movie
         this.getAndSetMovie();
@@ -65,7 +97,7 @@ class Layout extends Component {
             ret = false;
         } 
 
-        const seasons = ['season1', 'season2', 'season3', 'season4', 'season5', 'season6', 'season7', 'movie'];
+        const seasons = this.seasonsAndMovie;
         seasons.forEach(s => {
             if (!(s in nextState)) {
                 ret = false;
@@ -89,7 +121,6 @@ class Layout extends Component {
             scroll = cookieVals;
         }
         this.setState({listScrollPos: scroll, updateOnScroll: true});
-        console.log(this.state.listScrollPos);
     }
 
     getAndSetMovie = async () => {
@@ -105,66 +136,115 @@ class Layout extends Component {
             seen = cookieVals;
         }
 
+        // setting up custom episode
+        const newMovie = {
+            //season: +episode.dvdSeason,
+            //episodeNumber: +episode.dvdEpisodeNumber,
+            name: res.data.Title,
+            runtime: res.data.Runtime,
+            plot: res.data.Plot,
+            poster: res.data.Poster,
+            rating: res.data.imdbRating,
+            imdbId: res.imdbId,
+            rated: res.data.Rated,
+            active: false,
+            type: 'movie',
+            seen: seen,
+            movieID: this.movieID,
+            active: false
+    }
+
         // setting movie state
         this.setState({
             movie: {
-                ...res.data,
-                seen: seen,
-                movieID: this.movieID,
-                active: false
+                ...newMovie
             }
         });
     }
 
-    getAndSetEpisode = async (num) => {
+    getAndSetEpisodes = async () => {
+        const allData = [];
+        const imdbEps = [];
         let promises = [];
-        let seenArr = [];
-        const seasonNum = num;
-        const seasonName = `season${seasonNum}`;
-        let res = await axios.get(`https://www.omdbapi.com/?apikey=${this.apiKey}&i=${this.showID}&season=${seasonNum}`); // getting all episodes data
-        let episodes = res.data.Episodes;
+        let movie = null;
 
-        episodes.forEach(episode => {
-            promises.push(axios.get(`https://www.omdbapi.com/?apikey=${this.apiKey}&i=${episode.imdbID}`)); // getting single episode full data
-        });
-    
-        // waiting for all data to arrive
-        let allPromises = await Promise.all(promises);
+        // looping through seasons
+        for (var i=1;i<=7;i++) {
+            // getting static season data from firebase
+            const data = await axios.get(`https://clone-wars-tracker.firebaseio.com/season${i}.json`);
+            
+            // looping through episodes in season
+            const season = data.data.dvdSeason.data;
+            const seasonPromises = await season.map(async (episode,index) => {
+                // getting imdb data for episode
+                let imdbEp = await axios.get(`https://www.omdbapi.com/?apikey=${this.apiKey}&i=${episode.imdbId}`);
+                
+                // setting up custom episode
+                const newEpisode = {
+                        season: +episode.dvdSeason,
+                        episodeNumber: +episode.dvdEpisodeNumber,
+                        name: episode.episodeName,
+                        runtime: imdbEp.data.Runtime,
+                        plot: imdbEp.data.Plot,
+                        poster: imdbEp.data.Poster,
+                        rating: imdbEp.data.imdbRating,
+                        imdbId: episode.imdbId,
+                        rated: imdbEp.data.Rated,
+                        active: false,
+                        type: 'episode'
+                }
+                return newEpisode;
+            });
+            // waiting for all episode promises to be resolved
+            let newSeason = await Promise.all(seasonPromises);
+            
 
-        // getting and checking cookie data
-        let cookieVals = this.getCookie(`season${seasonNum}`);                
-        const seasonLength = episodes.length;
-        if (cookieVals===null || cookieVals.length!==seasonLength) {                   
-            this.setCookie(seasonName, episodes.map(e => e.seen), new Date('01/01/2100'));   
-            cookieVals.forEach((cv,i) => {
-                seenArr[i] = false;
-            });               
-        } else {
-            cookieVals.forEach((cv,i) => {
-                seenArr[i] = (cv === 'true');
+            // getting and checking cookie data
+            let cookieVals = this.getCookie(`season${i}`); 
+            let seenArr = [];               
+            if (cookieVals===null || cookieVals.length!==newSeason.length) {                   
+                this.setCookie(`season${i}`, newSeason.map(e => e.seen), new Date('01/01/2100'));   
+                cookieVals.forEach((cv,i) => {
+                    seenArr[i] = false;
+                });               
+            } else {
+                cookieVals.forEach((cv,i) => {
+                    seenArr[i] = (cv === 'true');
+                });
+            }
+
+            // adding seen property to custom ep object
+            const newestSeason = newSeason.map((ep, index) => {
+                return {
+                    ...ep,
+                    seen: seenArr[index]
+                }
+            });
+
+            // adding season data to all data
+            allData.push(newestSeason.sort((a,b) => (a.episodeNumber>b.episodeNumber ? 1 : -1)));
+            // setting episodes state
+            this.setState({
+                [`season${i}`]: newestSeason
             });
         }
-
-        // setting episodes data
-        episodes = allPromises.map((p,i) => {
-            return {
-                ...p.data,
-                seen: seenArr[i],
-                season: seasonNum,
-                showID: this.showID,
-                active: false
-            }           
-        });
-
-        // setting episodes state
-        this.setState({
-            [seasonName]: episodes
-        });
     }
+
+    // addEpToSeason = (episode) => {
+    //     const seasonNum = episode.season;
+    //     const episodeNum = episode.Episode;
+    //     const episodeIndex = episodeNum-1;
+    //     let season = this.state[`season${episode.season}`];
+    //     season.splice(episodeIndex, 0, episode)
+    //     this.setCookie(`season${seasonNum}`, season.map(e => e.seen), new Date('01/01/2100'));
+    //     this.setState({
+    //         [`season${episode.season}`]: season
+    //     });
+    // }
 
     // setting passed episode to seen
     changeEpisodeSeen = (episode) => {
-        if (episode.Type==='movie') {
+        if (episode.type==='movie') {
             const newSeen = !episode.seen;
             this.setCookie(`movie`, newSeen, new Date('01/01/2100'));
             this.setState({
@@ -175,7 +255,7 @@ class Layout extends Component {
             });
         } else {
             let season = this.state[`season${episode.season}`];
-            let epNum = parseInt(episode.Episode)-1;
+            let epNum = parseInt(episode.episodeNumber)-1;
             season[epNum].seen = !season[epNum].seen;
             this.setCookie(`season${episode.season}`, season.map(e => e.seen), new Date('01/01/2100'));
             this.setState({
@@ -192,7 +272,7 @@ class Layout extends Component {
             this.allEpisodesInactive();
         }
 
-        var elem = document.getElementById(`ep${episode.season}${episode.Episode}`);
+        var elem = document.getElementById(`ep${episode.season}${episode.episodeNumber}`);
         if (elem) {
             var bounding = elem.getBoundingClientRect();
             // active element has 300px height
@@ -214,7 +294,7 @@ class Layout extends Component {
             });
         } else {
             let season = this.state[`season${episode.season}`];
-            let epNum = parseInt(episode.Episode)-1;
+            let epNum = parseInt(episode.episodeNumber)-1;
             season[epNum].active = !season[epNum].active;
             this.setState({
                 [`season${episode.season}`]: season
@@ -224,7 +304,7 @@ class Layout extends Component {
 
     // setting all episodes to inactive
     allEpisodesInactive = () => {
-        const seasons = ['season1', 'season2','season3','season4','season5','season6','season7'];
+        const seasons = this.seasons;
         let newState = {};
         seasons.forEach(season => {
             let newSeason = this.state[season];
@@ -307,11 +387,13 @@ class Layout extends Component {
                                                                         movie={this.state.movie}
                                                                         scrolled={this.scrolled}
                                                                         listScrollPos={this.state.listScrollPos}
+                                                                        addEpToSeason={this.addEpToSeason}
                                                                         />}></Route>
                     <Route path="/gridView" exact render={(props) => <GridView 
                                                                         apiKey={this.apiKey} 
                                                                         seasons={{...this.state}} 
                                                                         movie={this.state.movie} 
+                                                                        seasonNums={this.seasonNums}
                                                                         gridClicked={this.changeEpisodeSeen}/>}></Route>
                     </Switch>
                 </Bottom>  

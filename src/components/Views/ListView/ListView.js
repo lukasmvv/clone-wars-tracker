@@ -28,51 +28,11 @@ const ListView = (props) => {
             if (listed===100) {
                 props.movie.chronoNum = chronoNum;
                 episodesChrono.push(props.movie);
-            }            
-            // if episode is in season
-            
-            // else if (epNum<props.seasons[`season${seasonNum}`].length) {
-            // else if (props.seasons[`season${seasonNum}`][epIndex].Episode===epIndex+1) {
-            else if (typeof props.seasons[`season${seasonNum}`][epIndex]!=='undefined') {
-                if (+props.seasons[`season${seasonNum}`][epIndex].Episode===epIndex+1) {
-                    const episodeToPush = props.seasons[`season${seasonNum}`][epIndex];
-                    episodeToPush.chronoNum = chronoNum;
-                    episodesChrono.push(episodeToPush);
-                } else {
-                    const tempEp = {
-                        Actors: "N/A",
-                        Awards: "N/A",
-                        Country: "N/A",
-                        Director: "N/A",
-                        Episode: epIndex+1,
-                        Genre: "Animation, Action, Adventure, Drama, Fantasy, Sci-Fi",
-                        Language: "N/A",
-                        Metascore: "N/A",
-                        Plot: "N/A",
-                        Poster: "N/A",
-                        Rated: "N/A",
-                        Ratings: [],
-                        Released: "N/A",
-                        Response: "True",
-                        Runtime: "23 min",
-                        Season: "7",
-                        Title: "N/A",
-                        Type: "episode",
-                        Writer: "N/A",
-                        Year: "N/A",
-                        active: false,
-                        imdbID: "N/A",
-                        imdbRating: "N/A",
-                        imdbVotes: "N/A",
-                        season: seasonNum,
-                        seen: false,
-                        seriesID: "tt0458290",
-                        showID: "N/A",
-                        chronoNum: chronoNum
-                    };
-                    episodesChrono.push(tempEp); // adding empty episode to array
-                }
-            }            
+            } else {
+                const episodeToPush = props.seasons[`season${seasonNum}`][epIndex];
+                episodeToPush.chronoNum = chronoNum;
+                episodesChrono.push(episodeToPush);
+            }    
         }
     });
 

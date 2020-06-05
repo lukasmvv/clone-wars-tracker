@@ -1,0 +1,464 @@
+{
+    "data": {
+        "id": 5578,
+        "runtime": 98,
+        "genres": [
+            {
+                "url": "animation",
+                "name": "Animation",
+                "id": 17
+            },
+            {
+                "url": "action",
+                "name": "Action",
+                "id": 19
+            },
+            {
+                "url": "science-fiction",
+                "name": "Science Fiction",
+                "id": 2
+            },
+            {
+                "url": "adventure",
+                "name": "Adventure",
+                "id": 18
+            }
+        ],
+        "translations": [
+            {
+                "language_code": "hun",
+                "name": "Star Wars: A klónok háborúja",
+                "overview": "",
+                "is_primary": false,
+                "tagline": ""
+            },
+            {
+                "language_code": "ces",
+                "name": "Star Wars: Klonové války",
+                "overview": "",
+                "is_primary": false,
+                "tagline": ""
+            },
+            {
+                "language_code": "jpn",
+                "name": "スター・ウォーズ／クローン・ウォーズ",
+                "overview": "",
+                "is_primary": false,
+                "tagline": ""
+            },
+            {
+                "language_code": "spa",
+                "name": "Star Wars: Las guerras clon",
+                "overview": "",
+                "is_primary": false,
+                "tagline": ""
+            },
+            {
+                "language_code": "kor",
+                "name": "스타워즈: 클론전쟁",
+                "overview": "",
+                "is_primary": false,
+                "tagline": ""
+            },
+            {
+                "language_code": "rus",
+                "name": "Звёздные войны: Войны клонов",
+                "overview": "",
+                "is_primary": false,
+                "tagline": ""
+            },
+            {
+                "language_code": "heb",
+                "name": "מלחמת הכוכבים: מלחמת המשובטים",
+                "overview": "",
+                "is_primary": false,
+                "tagline": ""
+            },
+            {
+                "language_code": "tur",
+                "name": "Yıldız Savaşları: Klon Savaşları",
+                "overview": "",
+                "is_primary": false,
+                "tagline": ""
+            },
+            {
+                "language_code": "por",
+                "name": "Star Wars: A Guerra dos Clones",
+                "overview": "",
+                "is_primary": false,
+                "tagline": ""
+            },
+            {
+                "language_code": "zho",
+                "name": "星際大戰：複製人之戰",
+                "overview": "",
+                "is_primary": false,
+                "tagline": ""
+            },
+            {
+                "language_code": "pol",
+                "name": "Gwiezdne wojny: Wojny klonów",
+                "overview": "",
+                "is_primary": false,
+                "tagline": ""
+            },
+            {
+                "language_code": "eng",
+                "name": "Star Wars: The Clone Wars",
+                "overview": "During the Clone Wars (Star Wars), Jedi Anakin Skywalker and Obi-Wan Kenobi lead a small Galactic Republic Clone troopers against the Separatist droid army on the planet Christophsis. Awaiting reinforcements, the two Jedi greet a shuttle carrying the young Jedi Ahsoka Tano, who insists that she has been assigned by Jedi Master Yoda to serve as Anakin's Padawan. Anakin begrudgingly accepts Ahsoka's apprenticeship, and the two succeed in deactivating the Separatists' energy field while Obi-Wan stalls the droid army commander, allowing a Republic victory. Ahsoka earns Anakin's respect.",
+                "is_primary": true,
+                "tagline": ""
+            }
+        ],
+        "release_dates": [
+            {
+                "type": "release_date",
+                "date": "2008-08-05",
+                "country": "global"
+            }
+        ],
+        "artworks": [
+            {
+                "id": "2573610",
+                "artwork_type": "Background",
+                "url": "/banners/movies/5578/backgrounds/5578.jpg",
+                "thumb_url": "/movies/5578/backgrounds/5578_t.jpg",
+                "tags": null,
+                "is_primary": true,
+                "width": 1920,
+                "height": 1080
+            },
+            {
+                "id": "62046625",
+                "artwork_type": "Poster",
+                "url": "/banners/movies/5578/posters/62046625.jpg",
+                "thumb_url": "/banners/movies/5578/posters/62046625_t.jpg",
+                "tags": null,
+                "is_primary": false,
+                "width": 680,
+                "height": 1000
+            },
+            {
+                "id": "62046626",
+                "artwork_type": "Poster",
+                "url": "/banners/movies/5578/posters/62046626.jpg",
+                "thumb_url": "/banners/movies/5578/posters/62046626_t.jpg",
+                "tags": null,
+                "is_primary": false,
+                "width": 680,
+                "height": 1000
+            },
+            {
+                "id": "2472663",
+                "artwork_type": "Poster",
+                "url": "/banners/movies/5578/posters/5578.jpg",
+                "thumb_url": "/movies/5578/posters/5578_t.jpg",
+                "tags": null,
+                "is_primary": false,
+                "width": 680,
+                "height": 1000
+            }
+        ],
+        "trailers": [],
+        "remoteids": [
+            {
+                "id": "tt1185834",
+                "source_id": 2,
+                "source_name": "IMDB",
+                "source_url": "imdb",
+                "url": "http://www.imdb.com/title/tt1185834"
+            },
+            {
+                "id": "http://www.starwars.com/clonewars/site/index.html",
+                "source_id": 4,
+                "source_name": "Official Website",
+                "source_url": "official",
+                "url": "http://www.starwars.com/clonewars/site/index.html"
+            }
+        ],
+        "people": {
+            "actors": [
+                {
+                    "id": "12258758",
+                    "name": "Tom Kane",
+                    "role": "Narrator / Yoda / Admiral Yularen (voice)",
+                    "people_image": "",
+                    "role_image": "",
+                    "is_featured": false,
+                    "people_id": "281126",
+                    "imdb_id": "",
+                    "people_twitter": "",
+                    "people_facebook": "",
+                    "people_instagram": ""
+                },
+                {
+                    "id": "12258759",
+                    "name": "Matt Lanter",
+                    "role": "Anakin Skywalker (voice)",
+                    "people_image": "/banners/person/346628/primary.jpg",
+                    "role_image": "",
+                    "is_featured": false,
+                    "people_id": "346628",
+                    "imdb_id": "",
+                    "people_twitter": "",
+                    "people_facebook": "",
+                    "people_instagram": ""
+                },
+                {
+                    "id": "12258760",
+                    "name": "Ashley Eckstein",
+                    "role": "Ahsoka Tano (voice)",
+                    "people_image": "",
+                    "role_image": "",
+                    "is_featured": false,
+                    "people_id": "470826",
+                    "imdb_id": "",
+                    "people_twitter": "",
+                    "people_facebook": "",
+                    "people_instagram": ""
+                },
+                {
+                    "id": "12258761",
+                    "name": "James Arnold Taylor",
+                    "role": "Obi-Wan Kenobi / 4A-7 / Medical Droid (voice)",
+                    "people_image": "",
+                    "role_image": "",
+                    "is_featured": false,
+                    "people_id": "302640",
+                    "imdb_id": "",
+                    "people_twitter": "",
+                    "people_facebook": "",
+                    "people_instagram": ""
+                },
+                {
+                    "id": "12258762",
+                    "name": "Dee Bradley Baker",
+                    "role": "Captain Rex / Commander Cody / Commander Fox / Clone Troopers (voice)",
+                    "people_image": "/banners/person/281259/5ebeafa4ad53e.jpg",
+                    "role_image": "",
+                    "is_featured": false,
+                    "people_id": "281259",
+                    "imdb_id": "",
+                    "people_twitter": "",
+                    "people_facebook": "",
+                    "people_instagram": ""
+                },
+                {
+                    "id": "12258763",
+                    "name": "Catherine Taber",
+                    "role": "Padmé Amidala (voice)",
+                    "people_image": "",
+                    "role_image": "",
+                    "is_featured": false,
+                    "people_id": "470825",
+                    "imdb_id": "",
+                    "people_twitter": "",
+                    "people_facebook": "",
+                    "people_instagram": ""
+                },
+                {
+                    "id": "12258764",
+                    "name": "Nika Futterman",
+                    "role": "Asajj Ventress / Tee-C-Seventy (voice)",
+                    "people_image": "",
+                    "role_image": "",
+                    "is_featured": false,
+                    "people_id": "302643",
+                    "imdb_id": "",
+                    "people_twitter": "",
+                    "people_facebook": "",
+                    "people_instagram": ""
+                },
+                {
+                    "id": "12258765",
+                    "name": "Christopher Lee",
+                    "role": "Count Dooku (voice)",
+                    "people_image": "/banners/person/283326/primary.jpg",
+                    "role_image": "",
+                    "is_featured": false,
+                    "people_id": "283326",
+                    "imdb_id": "",
+                    "people_twitter": "",
+                    "people_facebook": "",
+                    "people_instagram": ""
+                },
+                {
+                    "id": "12258766",
+                    "name": "Matthew Wood",
+                    "role": "General Grievous / Battle Droids (voice)",
+                    "people_image": "",
+                    "role_image": "",
+                    "is_featured": false,
+                    "people_id": "470824",
+                    "imdb_id": "",
+                    "people_twitter": "",
+                    "people_facebook": "",
+                    "people_instagram": ""
+                },
+                {
+                    "id": "12258767",
+                    "name": "Ian Abercrombie",
+                    "role": "Chancellor Palpatine / Darth Sidious (voice)",
+                    "people_image": "",
+                    "role_image": "",
+                    "is_featured": false,
+                    "people_id": "252352",
+                    "imdb_id": "",
+                    "people_twitter": "",
+                    "people_facebook": "",
+                    "people_instagram": ""
+                },
+                {
+                    "id": "12258768",
+                    "name": "Samuel L. Jackson",
+                    "role": "Mace Windu (voice)",
+                    "people_image": "/banners/person/287826/primary.jpg",
+                    "role_image": "",
+                    "is_featured": false,
+                    "people_id": "287826",
+                    "imdb_id": "",
+                    "people_twitter": "",
+                    "people_facebook": "",
+                    "people_instagram": ""
+                },
+                {
+                    "id": "12258769",
+                    "name": "Anthony Daniels",
+                    "role": "C-3PO (voice)",
+                    "people_image": "/banners/person/258060/5e9a111ec9595.jpg",
+                    "role_image": "",
+                    "is_featured": false,
+                    "people_id": "258060",
+                    "imdb_id": "nm0000355",
+                    "people_twitter": "",
+                    "people_facebook": "",
+                    "people_instagram": ""
+                },
+                {
+                    "id": "12258770",
+                    "name": "Kevin Michael Richardson",
+                    "role": "Jabba the Hutt (voice)",
+                    "people_image": "/banners/person/274256/5ebeaf08ee4f0.jpg",
+                    "role_image": "",
+                    "is_featured": false,
+                    "people_id": "274256",
+                    "imdb_id": "nm0724656",
+                    "people_twitter": "",
+                    "people_facebook": "",
+                    "people_instagram": ""
+                },
+                {
+                    "id": "12258771",
+                    "name": "Corey Burton",
+                    "role": "Ziro the Hutt / General Loathsom / Kronos-327 (voice)",
+                    "people_image": "/banners/person/280644/5ebc3912de047.jpg",
+                    "role_image": "",
+                    "is_featured": false,
+                    "people_id": "280644",
+                    "imdb_id": "nm0123553",
+                    "people_twitter": "",
+                    "people_facebook": "",
+                    "people_instagram": ""
+                },
+                {
+                    "id": "12258772",
+                    "name": "David Acord",
+                    "role": "Rotta the Huttlet (voice)",
+                    "people_image": "",
+                    "role_image": "",
+                    "is_featured": false,
+                    "people_id": "628799",
+                    "imdb_id": "",
+                    "people_twitter": "",
+                    "people_facebook": "",
+                    "people_instagram": ""
+                }
+            ],
+            "directors": [
+                {
+                    "id": "12258774",
+                    "name": "Dave Filoni",
+                    "role": "",
+                    "people_image": "",
+                    "role_image": "",
+                    "is_featured": false,
+                    "people_id": "381502",
+                    "imdb_id": "",
+                    "people_twitter": "",
+                    "people_facebook": "",
+                    "people_instagram": ""
+                }
+            ],
+            "producers": [
+                {
+                    "id": "12258773",
+                    "name": "George Lucas",
+                    "role": "",
+                    "people_image": "/banners/person/310760/primary.jpg",
+                    "role_image": "",
+                    "is_featured": false,
+                    "people_id": "310760",
+                    "imdb_id": "",
+                    "people_twitter": "",
+                    "people_facebook": "",
+                    "people_instagram": ""
+                }
+            ],
+            "writers": [
+                {
+                    "id": "12258775",
+                    "name": "Henry Gilroy",
+                    "role": "",
+                    "people_image": "",
+                    "role_image": "",
+                    "is_featured": false,
+                    "people_id": "296591",
+                    "imdb_id": "",
+                    "people_twitter": "",
+                    "people_facebook": "",
+                    "people_instagram": ""
+                },
+                {
+                    "id": "12258776",
+                    "name": "Steven Melching",
+                    "role": "",
+                    "people_image": "",
+                    "role_image": "",
+                    "is_featured": false,
+                    "people_id": "276668",
+                    "imdb_id": "",
+                    "people_twitter": "",
+                    "people_facebook": "",
+                    "people_instagram": ""
+                },
+                {
+                    "id": "12258777",
+                    "name": "Scott Murphy",
+                    "role": "",
+                    "people_image": "",
+                    "role_image": "",
+                    "is_featured": false,
+                    "people_id": "283783",
+                    "imdb_id": "",
+                    "people_twitter": "",
+                    "people_facebook": "",
+                    "people_instagram": ""
+                },
+                {
+                    "id": "12258778",
+                    "name": "George Lucas",
+                    "role": "",
+                    "people_image": "/banners/person/310760/primary.jpg",
+                    "role_image": "",
+                    "is_featured": false,
+                    "people_id": "310760",
+                    "imdb_id": "",
+                    "people_twitter": "",
+                    "people_facebook": "",
+                    "people_instagram": ""
+                }
+            ]
+        },
+        "url": "https://api.thetvdb.com/star-wars-the-clone-wars"
+    }
+}
