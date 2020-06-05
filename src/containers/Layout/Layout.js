@@ -9,8 +9,10 @@ import axios from 'axios';
 
 // TO DO
 // Episode fonts, seen colours
-// Grid improvements?
+// desktop css
 // cookie permissions?
+// improvements after feedback
+// authenticate firebase comms
 
 // EXTRA TO DO
 // star wars intro type scroll
@@ -78,7 +80,7 @@ class Layout extends Component {
 
     componentDidMount() { 
         // getting episodes
-        this.testFirebase();
+        this.getAndSetEpisodes();
 
         // getting movie
         this.getAndSetMovie();

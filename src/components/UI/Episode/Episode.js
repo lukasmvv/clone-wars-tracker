@@ -11,6 +11,7 @@ const Episode = (props) => {
         img = <img className={classes.ImageMovie} src={`https://img.omdbapi.com/?i=${episode.movieID}&apikey=${props.apiKey}`} alt='moviePoster'></img>;
     } else {
         img = <img className={classes.Image} src={`/assets/episodeCovers/${epCode}`} alt={`s${episode.season}e${episode.episodeNumber}`}></img>;
+        //img = <img className={classes.Image} src={episode.poster} alt={`s${episode.season}e${episode.episodeNumber}`}></img>;
     }
 
     // getting episode number

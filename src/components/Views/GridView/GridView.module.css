@@ -2,9 +2,10 @@
 .GridView {
     /* font-size: 10px; */
     width: 100%;
-    height: 95%;
+    height: 100%;
     /* overflow: scroll;   */
-    overflow: auto;
+    /* overflow: auto; */
+    overflow: hidden;
     /* scroll-snap-type: y proximity;
     scroll-padding-top: 8px; */
 }
@@ -13,6 +14,7 @@
 .Content {
     width: 100%;
     height: 100%;
+    overflow: hidden;
 }
 
 /* Movie Input - Before Table Body */
@@ -20,8 +22,10 @@
     color: snow;
     width: 30%;
     height: 5%;
-    display: inline-block;
+    display: block;
     margin-left: 10px;
+    box-sizing: border-box;
+    margin-bottom: 2px;
 }
 /* Movie Div for Checkmark */
 .MovieDiv {
@@ -38,21 +42,22 @@
 /* Table, Table Body, Rows, Columns, Headers */
 .Table {
     width: 100%;
-    height: 100%;
+    height: calc(90% - 2px);
     font-size: 15px;
     color: silver;
     border-collapse: collapse;
     text-align: center;
+    /* display: inline-block; */
 }
 .Body {
     width: 100%;
     height: 100%;
 }
 td {
-    border: 1px solid silver;
+    /* border: 1px solid silver; */
     /* padding: 0px; */
     width: fit-content;
-    height: 10px;
+    /* height: 5px; */
 }
 th {
     border: 1px solid silver;
@@ -60,7 +65,7 @@ th {
     background-color: slategray;
     color: black;
     width: fit-content;
-    height: 10px;
+    /* height: 5px; */
 }
 
 /* Custom Checkbox */
