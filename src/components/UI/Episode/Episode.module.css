@@ -11,7 +11,8 @@
     -moz-user-select: none;    
     -ms-user-select: none;      
     user-select: none;
-    scroll-snap-align: bottom;    
+    scroll-snap-align: bottom;  
+    cursor: crosshair;  
 }
 .EpActive {
     width: 95%;
