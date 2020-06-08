@@ -9,10 +9,8 @@ import axios from 'axios';
 
 // TO DO
 // Episode fonts, seen colours
-// desktop css
 // cookie permissions?
 // improvements after feedback
-// authenticate firebase comms
 
 // EXTRA TO DO
 // star wars intro type scroll
@@ -182,7 +180,7 @@ class Layout extends Component {
                 let imdbEp = await axios.get(`https://www.omdbapi.com/?apikey=${this.apiKey}&i=${episode.imdbId}`);
                 
                 // setting up custom episode
-                const newEpisode = {
+                let newEpisode = {
                         season: +episode.dvdSeason,
                         episodeNumber: +episode.dvdEpisodeNumber,
                         name: episode.episodeName,
@@ -195,6 +193,18 @@ class Layout extends Component {
                         active: false,
                         type: 'episode'
                 }
+
+                // checking plot, runtime and rating data
+                if (newEpisode.plot==='N/A' || typeof newEpisode.plot==='undefined') {
+                    newEpisode.plot = episode.overview;
+                }
+                if (newEpisode.runtime==='N/A' || typeof newEpisode.runtime==='undefined') {
+                    newEpisode.runtime = '?m';
+                }
+                if (newEpisode.rating==='N/A' || typeof newEpisode.rating==='undefined') {
+                    newEpisode.rating = '?';
+                }
+
                 return newEpisode;
             });
             // waiting for all episode promises to be resolved

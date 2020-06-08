@@ -1,9 +1,50 @@
 /* List View */
 .ListView {
-    overflow: auto;
+    overflow-y: scroll;
     /* background-color: steelblue; */
     height: 100%;
     width: 100%;
     scroll-snap-type: y proximity;
     scroll-padding-top: 8px;
 }
+
+.EmptyDiv {
+    box-sizing: border-box;
+    /* background-color: ivory; */
+    height: 50px;
+    width: 90%;
+    margin: 0 auto;
+}
+
+@media (min-width: 600px) {
+    .ListView {
+        overflow-y: scroll;
+        /* background-color: steelblue; */
+        height: 100%;
+        width: 50%;
+        /* scroll-snap-type: y mandatory; */
+        /* scroll-padding-top: 8px; */
+        scroll-snap-points-y: repeat(300px);
+        margin: 0 auto;        
+    }
+
+    ::-webkit-scrollbar {
+        width: 10px;  /* Remove scrollbar space */
+        background: transparent;  /* Optional: just make scrollbar invisible */
+    }
+    /* Optional: show position indicator in red */
+    ::-webkit-scrollbar-thumb {
+        background: #EEDB00;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 5px grey;
+        border-radius: 10px;
+    }
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: rgb(243, 232, 113);
+    }
+  }
