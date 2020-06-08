@@ -138,8 +138,8 @@ class Layout extends Component {
 
         // setting up custom episode
         const newMovie = {
-            //season: +episode.dvdSeason,
-            //episodeNumber: +episode.dvdEpisodeNumber,
+            season: 1,
+            episodeNumber: 0,
             name: res.data.Title,
             runtime: res.data.Runtime,
             plot: res.data.Plot,
@@ -296,7 +296,7 @@ class Layout extends Component {
             }
         }
 
-        if (episode.Type==='movie') {
+        if (episode.type==='movie') {
             const newActive = !episode.active;
             this.setState({
                 movie: {

@@ -34,7 +34,7 @@ const Episode = (props) => {
             </div>
             <div className={`${episode.active ? classes.MidActive : classes.MidNotActive} ${episode.seen ? classes.MidSeen : classes.MidNotSeen}`} >
                 <p className={episode.active ? classes.TitleLarge : classes.TitleSmall} onClick={() => props.changeSeen(episode)}>{episode.name}</p>
-                <div className={episode.active ? classes.LongPlot : classes.ShortPlot} onClick={() => props.clickedEpisode(episode)}>
+                <div className={`${episode.active ? classes.LongPlot : classes.ShortPlot} ${classes.noselect}`} onClick={() => props.clickedEpisode(episode)}>
                     <p>{episode.plot}</p>
                 </div>                
             </div>
